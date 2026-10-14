@@ -1,0 +1,27 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.Echoteka/echoteka-mcp",
+  "description": "AI audio mastering: loudness analysis, AI-artifact cleanup, streaming-target masters.",
+  "version": "0.1.0",
+  "websiteUrl": "https://echoteka.ai/mcp",
+  "repository": {
+    "url": "https://github.com/Echoteka/echoteka-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "echoteka-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://echoteka.ai/mcp"
+    }
+  ]
+}

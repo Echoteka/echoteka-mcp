@@ -1,0 +1,51 @@
+{
+  "name": "echoteka-mcp",
+  "version": "0.1.0",
+  "description": "Echoteka MCP: AI audio mastering for assistants. Analyze loudness, clean AI-generator artifacts, master tracks to streaming targets. stdio bridge to the hosted server https://echoteka.ai/mcp",
+  "bin": {
+    "echoteka-mcp": "bin/echoteka-mcp.js"
+  },
+  "scripts": {
+    "build": "node --check bin/echoteka-mcp.js",
+    "start": "node bin/echoteka-mcp.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "audio",
+    "mastering",
+    "lufs",
+    "true-peak",
+    "loudness",
+    "suno",
+    "ai-music",
+    "music",
+    "ai-agents",
+    "claude",
+    "cursor",
+    "codex"
+  ],
+  "homepage": "https://echoteka.ai/mcp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Echoteka/echoteka-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Echoteka/echoteka-mcp/issues"
+  },
+  "author": "Echoteka",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "bin/",
+    "README.md",
+    "LICENSE",
+    "server.json"
+  ],
+  "dependencies": {
+    "mcp-remote": "0.8.5"
+  },
+  "mcpName": "io.github.Echoteka/echoteka-mcp"
+}

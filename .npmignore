@@ -1,0 +1,7 @@
+node_modules/
+Dockerfile
+LISTING.md
+glama.json
+server.json
+.gitignore
+.npmignore
