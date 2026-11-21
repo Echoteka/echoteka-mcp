@@ -7,7 +7,7 @@
 - MCP page with setup notes: <https://echoteka.ai/mcp>
 - Machine-readable description: <https://echoteka.ai/mcp.json>
 
-Nothing has to be installed for the hosted server. This package is a small stdio bridge for clients that cannot speak HTTP, and it reaches the same server.
+Nothing has to be installed for the hosted server. Clients that only speak stdio can reach the same server through the open-source [`mcp-remote`](https://www.npmjs.com/package/mcp-remote) bridge, as shown below.
 
 ## Connect
 
@@ -28,7 +28,7 @@ Option B, config file (`claude_desktop_config.json`), for versions that only acc
   "mcpServers": {
     "echoteka": {
       "command": "npx",
-      "args": ["-y", "echoteka-mcp"]
+      "args": ["-y", "mcp-remote", "https://echoteka.ai/mcp"]
     }
   }
 }
@@ -70,7 +70,7 @@ url = "https://echoteka.ai/mcp"
   "mcpServers": {
     "echoteka": {
       "command": "npx",
-      "args": ["-y", "echoteka-mcp"]
+      "args": ["-y", "mcp-remote", "https://echoteka.ai/mcp"]
     }
   }
 }
@@ -81,11 +81,12 @@ url = "https://echoteka.ai/mcp"
 The anonymous endpoint is enough to try everything. To use the masters of your own Echoteka account, connect to the sign-in endpoint instead. The client opens an Echoteka page in your browser, you sign in and press Allow, and the assistant receives a token limited to mastering. It never sees your password.
 
 - Remote clients: use `https://echoteka.ai/mcp/oauth` as the URL, for example `claude mcp add --transport http echoteka https://echoteka.ai/mcp/oauth`.
-- This package: set `ECHOTEKA_MCP_URL=https://echoteka.ai/mcp/oauth` in the environment of the process that starts it.
+- Stdio clients: put `https://echoteka.ai/mcp/oauth` in place of the URL in the `mcp-remote` arguments.
+- Docker image from this repository: set `ECHOTEKA_MCP_URL=https://echoteka.ai/mcp/oauth` in the container environment.
 
 ## Tools
 
-The live `tools/list` response of `https://echoteka.ai/mcp` (checked 14 October 2026) contains nine tools:
+The live `tools/list` response of `https://echoteka.ai/mcp` (checked 21 November 2026) contains nine tools:
 
 | Tool | What it does | Cost |
 |---|---|---|
@@ -119,6 +120,8 @@ Current details and prices: <https://echoteka.ai/pricing>.
 - Free masters are not stored for long. Download the result when the job is done.
 
 ## Configuration
+
+These settings apply to the bridge script in this repository, which the Docker image runs.
 
 | Variable | Default | Purpose |
 |---|---|---|

@@ -3,8 +3,8 @@
 #
 # The Echoteka server itself does NOT run in this image: it is hosted at
 # https://echoteka.ai/mcp. The image contains only the bridge that turns the
-# client's stdio protocol into HTTP calls to that server. The same bridge is
-# published on npm (`npx -y echoteka-mcp`).
+# client's stdio protocol into HTTP calls to that server. Stdio clients without
+# Docker can use `npx -y mcp-remote https://echoteka.ai/mcp` instead.
 FROM node:22-alpine
 
 WORKDIR /app
