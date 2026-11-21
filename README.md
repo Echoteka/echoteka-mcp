@@ -7,7 +7,7 @@
 - MCP page with setup notes: <https://echoteka.ai/mcp>
 - Machine-readable description: <https://echoteka.ai/mcp.json>
 
-Nothing has to be installed for the hosted server. Clients that only speak stdio can reach the same server through the open-source [`mcp-remote`](https://www.npmjs.com/package/mcp-remote) bridge, as shown below.
+Nothing has to be installed for the hosted server. This package is a small stdio bridge for clients that cannot speak HTTP, and it reaches the same server.
 
 ## Connect
 
@@ -81,8 +81,7 @@ url = "https://echoteka.ai/mcp"
 The anonymous endpoint is enough to try everything. To use the masters of your own Echoteka account, connect to the sign-in endpoint instead. The client opens an Echoteka page in your browser, you sign in and press Allow, and the assistant receives a token limited to mastering. It never sees your password.
 
 - Remote clients: use `https://echoteka.ai/mcp/oauth` as the URL, for example `claude mcp add --transport http echoteka https://echoteka.ai/mcp/oauth`.
-- Stdio clients: put `https://echoteka.ai/mcp/oauth` in place of the URL in the `mcp-remote` arguments.
-- Docker image from this repository: set `ECHOTEKA_MCP_URL=https://echoteka.ai/mcp/oauth` in the container environment.
+- This package: set `ECHOTEKA_MCP_URL=https://echoteka.ai/mcp/oauth` in the environment of the process that starts it.
 
 ## Tools
 
@@ -90,15 +89,15 @@ The live `tools/list` response of `https://echoteka.ai/mcp` (checked 21 November
 
 | Tool | What it does | Cost |
 |---|---|---|
-| `get_service_info` | What Echoteka does, what is free, where the rules are. Call once at the start. | free |
-| `list_presets` | Mastering presets with their target loudness in LUFS. | free |
-| `check_limits` | Free masters left today, when they reset, credit balance, upload limit. | free |
-| `analyze_track` | Integrated LUFS, sample peak, duration, sample rate, stereo correlation. No processing. | free |
-| `clean_ai_trace` | Removes marks an AI generator leaves in the audio, such as narrow tones above 15 kHz and seams between generated blocks. Loudness and tone stay as they are. | free, no credit |
-| `preview_styles` | Masters 24 seconds of a track in 2 to 6 presets and returns each loudness and a listen link. | free, 6 per day |
-| `master_track` | Masters one track to a preset and target, returns a job id. `dry_run` shows what would be used first. | free daily master, then credits |
-| `batch_master` | Masters up to 10 tracks with the same settings. Album mode keeps the loudness balance between tracks. | one free run or a credit per track |
-| `get_job` | Status and result of a job: loudness, true peak, loudness range, and a signed download link. | free |
+| `get_service_info` | Profile of the service: which features run free, what one credit covers, and where the written rules are. | free |
+| `list_presets` | Preset catalogue with each preset's loudness target in LUFS. These keys are the only style values `master_track` accepts. | free |
+| `check_limits` | Free runs left today and when they reset, credit balance, upload cap, access to advanced modules. | free |
+| `analyze_track` | Reads integrated loudness, sample peak, length, sample rate and stereo correlation from the file, without rendering. | free |
+| `clean_ai_trace` | Removes the marks an AI generator leaves in the audio, such as narrow tones above 15 kHz and seams between generated blocks. Loudness and tone stay as they are. | free, no credit |
+| `preview_styles` | Renders the central 24 seconds through two to six presets and returns each loudness and a listen link. | free, 6 per day |
+| `master_track` | Renders one track, drawing a credit when the account has a balance and the free allowance otherwise. `dry_run` shows the planned charge first. | free daily master, then credits |
+| `batch_master` | Runs up to 10 tracks with the same settings; album mode keeps the loudness balance between them. | one free run or a credit per track |
+| `get_job` | Status, progress and result metrics. A finished master gets a signed download link valid for about an hour. | free |
 
 Typical flow: `check_limits` → `analyze_track` → `clean_ai_trace` (optional, for AI-generated tracks) → `preview_styles` → `master_track` → poll `get_job`.
 
@@ -120,8 +119,6 @@ Current details and prices: <https://echoteka.ai/pricing>.
 - Free masters are not stored for long. Download the result when the job is done.
 
 ## Configuration
-
-These settings apply to the bridge script in this repository, which the Docker image runs.
 
 | Variable | Default | Purpose |
 |---|---|---|
