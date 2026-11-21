@@ -1,5 +1,7 @@
 # echoteka-mcp: AI audio mastering for your assistant
 
+[![Echoteka — AI Music Mastering MCP server](https://mcprush.com/badge/mastering-mcp/card.svg)](https://mcprush.com/to/mastering-mcp?ref=badge)
+
 [Echoteka](https://echoteka.ai) runs a remote [Model Context Protocol](https://modelcontextprotocol.io) (MCP) server. Connect it to Claude, Cursor, OpenAI Codex or any MCP client, and the assistant can measure a track's loudness, clean the marks an AI generator leaves in the audio, compare presets by ear and master the track to a streaming target.
 
 - Server: `https://echoteka.ai/mcp` (streamable HTTP, no key, no account needed)
